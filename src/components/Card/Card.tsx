@@ -9,8 +9,6 @@ const Card = (props) => {
     const { title, style, type, size, children } = props;
    
     return (
-        <>
-        <h3> Cart Component </h3>
         <CardAnt
             title={title}
             style={style}
@@ -18,9 +16,10 @@ const Card = (props) => {
             size={size}
             className="custom-card"
         >
-           {children}
+            <div className="card-content">
+                {children}
+            </div>
         </CardAnt>
-        </>
     )   
 }
 
@@ -35,7 +34,7 @@ Card.propTypes = {
 
 Card.defaultProps = {
     title: "Default Card",
-    style: { width: 300 },
+    style: { },
 
 }
 

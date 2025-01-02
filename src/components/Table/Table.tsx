@@ -13,7 +13,6 @@ const Table = (props) => {
 
     return (
         <>
-            <h3> Table Component </h3>
             <div className="custom-table">
                 <span className="title">Active Bids</span>
                 <TableAnt 

@@ -4,15 +4,15 @@ import { Input as InputAnt } from "antd";
 import PropTypes from 'prop-types';
 import Copy from '../CopyToClipboard/Copy';
 
-const Input = ({ value, placeholder, variant, name, allowClear, disabled, classNames, defaultValue, maxLength, size }) => {
+const Input = ({ onChange, onKeyDown, value, placeholder, variant, name, allowClear, disabled, classNames, defaultValue, maxLength, size, suffix }) => {
     const handeChange = (event: any) => {
         const { value, name } = event?.target;
         console.log("value", value, name);
+        onChange(event);
     }
 
     return (
         <>
-        <h3> Input Component </h3>
         <InputAnt
             value={value}
             placeholder={placeholder}
@@ -25,6 +25,8 @@ const Input = ({ value, placeholder, variant, name, allowClear, disabled, classN
             defaultValue={defaultValue}
             maxLength={maxLength}
             size={size}
+            suffix={suffix}
+            onKeyDown={onKeyDown}
         />
         </>
         
@@ -43,7 +45,9 @@ Input.propTypes = {
     classNames: PropTypes.string,
     defaultValue: PropTypes.string,
     maxLength: PropTypes.number,
-    size: PropTypes.oneOf(['large', 'middle', 'small'])
+    size: PropTypes.oneOf(['large', 'middle', 'small']),
+    suffix: PropTypes.element,
+    onKeyDown: PropTypes.func
 }
 
 Input.defaultProps = {
@@ -56,7 +60,10 @@ Input.defaultProps = {
     disabled: false,
     classNames: '',
     defaultValue: '',
-    size: 'middle'
+    size: 'middle',
+    suffix: null,
+    maxLength: 100000000000,
+    onKeyDown: () => {}
   };
  
 export default Input;

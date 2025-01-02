@@ -21,7 +21,6 @@ function TextArea(props) {
 
     return (
         <>
-            <h3> TextArea Component </h3>
             <TextAreaCustom
                 showCount={showCount}
                 maxLength={maxLength}

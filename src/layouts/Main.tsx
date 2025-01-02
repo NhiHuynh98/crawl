@@ -6,16 +6,17 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  VideoCameraOutlined
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Badge, Layout, Menu, theme } from "antd";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGlobe, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe, faBell, faUser, faBagShopping, faBraille, faListUl, faArrowRightArrowLeft, faBars, faBox, faShield, faGear, faCircleExclamation, faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 import Logo from "../logo.png";
 import "./Main.less";
 import { Link } from "react-router-dom";
+import Breadcrumbs from "../helper/breadcrumb";
 
 const { Header, Sider, Content } = Layout;
 
@@ -23,7 +24,7 @@ const Main = (props) => {
   const { children, separator, items, size } = props;
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer, borderRadiusLG }
   } = theme.useToken();
 
   return (
@@ -41,39 +42,39 @@ const Main = (props) => {
           items={[
             {
               key: "1",
-              icon: <UserOutlined />,
-              label: <Link to="/dashboard">Dashboard</Link>,
+              icon: <FontAwesomeIcon icon={faBars} />,
+              label: <Link to="/dashboard">Dashboard</Link>
             },
             {
               key: "2",
-              icon: <VideoCameraOutlined />,
-              label: <Link to="">Product Listings</Link>,
+              icon: <FontAwesomeIcon icon={faBagShopping} />,
+              label: <Link to="/product-list">Product Listings</Link>
             },
             {
               key: "3",
-              icon: <UploadOutlined />,
-              label: "Contract Bidding",
+              icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
+              label: <Link to="/contract-bidding">Contract Bidding</Link>
             },
             {
               key: "4",
-              icon: <UploadOutlined />,
-              label: "Order Management",
+              icon:  <FontAwesomeIcon icon={faBox} />,
+              label: <Link to="/order-management">Order Management</Link>
             },
             {
               key: "5",
-              icon: <UploadOutlined />,
-              label: "KYC Verification",
+              icon:<FontAwesomeIcon icon={faShield} />,
+              label: <Link to="/KYC-Verification">KYC Verification</Link>
             },
             {
               key: "6",
-              icon: <UploadOutlined />,
-              label: "Settings",
+              icon: <FontAwesomeIcon icon={faGear} />,
+              label: <Link to="settings">Settings</Link>
             },
             {
               key: "7",
-              icon: <UploadOutlined />,
-              label: "Notifications",
-            },
+              icon: <FontAwesomeIcon icon={faBell} />,
+              label: <Link to="/notifications">Notifications</Link>
+            }
           ]}
         />
 
@@ -87,14 +88,14 @@ const Main = (props) => {
             items={[
               {
                 key: "8",
-                icon: <VideoCameraOutlined />,
-                label: "Terms & Conditions",
+                icon: <FontAwesomeIcon icon={faCircleExclamation} />,
+                label: "Terms & Conditions"
               },
               {
                 key: "9",
-                icon: <UploadOutlined />,
-                label: "Privacy Policy",
-              },
+                icon:  <FontAwesomeIcon icon={faCircleExclamation} />,
+                label: "Privacy Policy"
+              }
             ]}
           />
         </div>
@@ -106,30 +107,31 @@ const Main = (props) => {
             background: colorBgContainer,
             display: "flex",
             gap: 10,
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
-          <Button
+          {/* <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
               fontSize: "16px",
               width: 64,
-              height: 64,
+              height: 64
             }}
-          />
+          /> */}
 
           <div className="header-menu">
-            <Breadcrumb
+            <Breadcrumbs/>
+            {/* <Breadcrumb
               separator={separator}
               items={items}
               className={`custom-breadcrumb-${size}`}
-            />
+            /> */}
 
             <div className="header-icon">
               <div className="notification">
-                <Badge count={"5"}>
+                <Badge count={"5"} color="#B98D58">
                   <FontAwesomeIcon icon={faBell} />
                 </Badge>
               </div>
@@ -139,20 +141,17 @@ const Main = (props) => {
                 <span>EN</span>
               </div>
               <div className="avatar">
-                <Link to="/login">
-                  <FontAwesomeIcon icon={faUser} />
-                </Link>
+                <FontAwesomeIcon icon={faCircleUser} />
               </div>
             </div>
           </div>
         </Header>
         <Content
           style={{
-            margin: "24px 16px",
             padding: 24,
             minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
+            background: "unset",
+            borderRadius: borderRadiusLG
           }}
         >
           {children}
@@ -163,10 +162,10 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.element
 };
 Main.defaultProps = {
-  children: "",
+  children: ""
 };
 
 export default Main;

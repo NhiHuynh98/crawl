@@ -3,7 +3,7 @@
 .custom-tabs-card {
     .ant-tabs-tab {
         border: unset !important;
-        color: @color-text-subtitle !important;
+        color: @color-progress-text !important;
         background-color: @color-bg-surface-disabled !important;
         font-size: @size-16 !important;
     }
@@ -12,9 +12,13 @@
         font-weight: @font-weight-bold;
         line-height: 18.75px;
         background: @color-bg !important;
+         color: @color-text-subtitle !important;
         .ant-tabs-tab-btn {
             color: @color-text-subtitle !important;
         }
+    }
+    .ant-tabs-nav-list {
+        gap: @spacing-3;
     }
     
 }
@@ -35,5 +39,8 @@
     }
     .ant-tabs-ink-bar {
         background: @color-border-card !important;    
+    }
+    .ant-tabs-nav-list {
+        gap: @spacing-3;
     }
 }

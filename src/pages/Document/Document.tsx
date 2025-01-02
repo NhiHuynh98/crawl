@@ -13,26 +13,26 @@ import NotificationCard from "../../components/Card/NotificationCard/Notificatio
 import Tabs from "../../components/Tabs/Tabs";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import Confirm from "../../components/Confirm/Confirm";
+import Alert from "../../components/Alert/Alert";
 
 const Document = () => {
   const items = [
     {
       title: "Application Center",
-      href: "",
+      href: ""
     },
     {
       title: "Application List",
-      href: "",
-    },
+      href: ""
+    }
   ];
   return (
-    <Main separator="/" items={items} size="small">
-      <>
-        <div className="test">
-          <div className="code-box-demo">
-            <Input />
-            <Copy
-              textJson={`
+    <>
+      <div className="test">
+        <div className="code-box-demo">
+          <Input />
+          <Copy
+            textJson={`
     <Input
         value={value}
         placeholder={placeholder}
@@ -47,14 +47,14 @@ const Document = () => {
         size={size}
     />
             `}
-            />
-          </div>
+          />
+        </div>
 
-          <div className="code-box-demo">
-            <TextArea />
+        <div className="code-box-demo">
+          <TextArea />
 
-            <Copy
-              textJson={`
+          <Copy
+            textJson={`
     <TextArea
         showCount={showCount}
         maxLength={maxLength}
@@ -65,27 +65,27 @@ const Document = () => {
         value={value}
     />      
             `}
-            />
-          </div>
+          />
         </div>
-        <div className="test">
-          <div className="code-box-demo">
-            <Card
-              title={
-                <>
-                  <div>
-                    <span>Order ID: </span> <br />
-                    <span>#000123</span>
-                  </div>
-                  <Button>Complete</Button>
-                </>
-              }
-            >
-              <p>Test Card </p>
-            </Card>
+      </div>
+      <div className="test">
+        <div className="code-box-demo">
+          <Card
+            title={
+              <>
+                <div>
+                  <span>Order ID: </span> <br />
+                  <span>#000123</span>
+                </div>
+                <Button>Complete</Button>
+              </>
+            }
+          >
+            <p>Test Card </p>
+          </Card>
 
-            <Copy
-              textJson={`
+          <Copy
+            textJson={`
     <CardAnt
         title={title}
         style={style}
@@ -104,12 +104,12 @@ const Document = () => {
     <Button>Complete</Button>
 
         `}
-            />
-          </div>
-          <div className="code-box-demo">
-            <ProductCard />
-            <Copy
-              textJson={`
+          />
+        </div>
+        <div className="code-box-demo">
+          <ProductCard />
+          <Copy
+            textJson={`
     <ProductCard
         name="Product Name"
         quanlity="1000 MT"
@@ -118,14 +118,14 @@ const Document = () => {
         imageSrc="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
     />
     `}
-            />
-          </div>
+          />
         </div>
-        <div className="test">
-          <div className="code-box-demo">
-            <Table />
-            <Copy
-              textJson={`
+      </div>
+      <div className="test">
+        <div className="code-box-demo">
+          <Table />
+          <Copy
+            textJson={`
     import { Table as TableAnt } from 'antd';
 
     <TableAnt 
@@ -168,27 +168,27 @@ const Document = () => {
         },
     ],
         `}
-            />
-          </div>
+          />
+        </div>
 
-          <div className="code-box-demo">
-            <NotificationCard />
-            <Copy
-              textJson={`
+        <div className="code-box-demo">
+          <NotificationCard />
+          <Copy
+            textJson={`
     <NotificationCard
     icon={<TaobaoCircleOutlined />}
     title="New contract opportunities."
     subTitle="Lorem ipsum..."
     />
                 `}
-            />
-          </div>
+          />
         </div>
-        <div className="test">
-          <div className="code-box-demo">
-            <Tabs type="card" />
-            <Copy
-              textJson={`
+      </div>
+      <div className="test">
+        <div className="code-box-demo">
+          <Tabs type="card" />
+          <Copy
+            textJson={`
     <Tabs items={items}/>
 
     const items = [{
@@ -207,14 +207,14 @@ const Document = () => {
     children: 'Content of editable tab 3',
     }]
                 `}
-            />
-          </div>
+          />
+        </div>
 
-          <div className="code-box-demo">
-            <Breadcrumb />
+        <div className="code-box-demo">
+          <Breadcrumb />
 
-            <Copy
-              textJson={`
+          <Copy
+            textJson={`
     <Breadcrumb
     separator={separator}
     items={items}
@@ -242,29 +242,37 @@ const Document = () => {
         }
     ]
             `}
-            />
-          </div>
+          />
         </div>
-        <div className="test">
-          <div className="code-box-demo">
-            <Tabs />
-          </div>
-          <div className="code-box-demo">
-            <Confirm isModalOpen={false} />
-            <Copy
-              textJson={`
+      </div>
+      <div className="test">
+        <div className="code-box-demo">
+          <Tabs />
+        </div>
+        <div className="code-box-demo">
+          <Confirm>
+            <Button>Show confirm</Button>
+          </Confirm>
+          <Copy
+            textJson={`
     <Confirm 
-    isModalOpen={true}
     handleOk={handleOk}
     handleCancel={handleCancel}
     title="Test titile"
-    />
+    >
+    <Button>Show confirm</Button>
+    </Confirm>
             `}
-            />
-          </div>
+          />
         </div>
-      </>
-    </Main>
+      </div>
+
+      <div className="test">
+        <div className="code-box-demo">
+          <Alert />
+        </div>
+      </div>
+    </>
   );
 };
 
