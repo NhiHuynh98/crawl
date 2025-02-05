@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,8 +18,21 @@ import { Kernels, RCN } from "../../assets/img";
 
 import "./ProductList.less";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../redux/store";
+import { fetchProducts } from "../../redux/product";
+
 const ProductList = () => {
   const navigate = useNavigate();
+
+  const dispatch: AppDispatch = useDispatch();
+  const { products, loading, error } = useSelector(
+    (state: RootState) => state.products
+  );
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const handleAddProduct = () => {
     navigate("/product-list/detail");
@@ -35,7 +48,11 @@ const ProductList = () => {
 
   const backPreviousPage = () => {
     navigate(-1);
-  }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="product-list">
       <div className="header">
@@ -44,7 +61,10 @@ const ProductList = () => {
             {
               title: (
                 <Flex align="center">
-                  <FontAwesomeIcon icon={faArrowLeft} onClick={backPreviousPage} />
+                  <FontAwesomeIcon
+                    icon={faArrowLeft}
+                    onClick={backPreviousPage}
+                  />
                   <span className="divider">|</span>
                   Product Listings
                 </Flex>

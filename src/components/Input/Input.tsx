@@ -2,13 +2,11 @@ import React from 'react';
 
 import { Input as InputAnt } from "antd";
 import PropTypes from 'prop-types';
-import Copy from '../CopyToClipboard/Copy';
 
 const Input = ({ onChange, onKeyDown, value, placeholder, variant, name, allowClear, disabled, classNames, defaultValue, maxLength, size, suffix }) => {
     const handeChange = (event: any) => {
         const { value, name } = event?.target;
-        console.log("value", value, name);
-        onChange(event);
+        onChange(name, value);
     }
 
     return (

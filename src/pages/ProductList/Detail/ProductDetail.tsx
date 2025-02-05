@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Flex, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -16,16 +16,73 @@ import { RCN } from "../../../assets/img";
 
 import "./ProductDetail.less";
 import Input from "../../../components/Input/Input";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductDetail = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const { products, loading, error } = useSelector(
+    (state: RootState) => state.products
+  );
+
   const navigate = useNavigate();
 
-  const onChange = () => {
-    console.log("change select");
+  const [product, setProduct] = useState({
+    country: "",
+    quanlity: "1000MT",
+    price: "$2000",
+    totalPrice: "$ 00",
+    quanlitySpecifications: {
+      nutCount: "",
+      outturn: "",
+      defective: "",
+      moisture: ""
+    }
+  });
+
+  const onChange = (value) => {
+    setProduct((prev) => ({
+      ...prev,
+      country: value
+    }));
   };
+
+  const handleInputChange = (name, value) => {
+    setProduct((prev) => ({
+      ...prev,
+      quanlitySpecifications: {
+        ...prev.quanlitySpecifications,
+        [name]: value
+      }
+    }));
+  }
+
+  const decreaseQuanlity = () => {
+
+  }
+
+  const increaseQuanlity = () => {
+
+  }
+
+  const decreasePrice = () => {
+
+  }
+
+  const increasePrice = () => {
+    
+  }
+
   const backToPage = () => {
     navigate(-1);
   };
+
+  const handleCreateProduct = () => {
+    // const newPost = { title: "New Post", body: "This is a new post", userId: 1 };
+    // dispatch(createPost(newPost));
+    console.log("product", product)
+  };
+
   return (
     <div className="product-detail">
       <div className="product-header">
@@ -72,9 +129,10 @@ const ProductDetail = () => {
                 <div>Country Of Origin</div>
                 <Select
                   showSearch
-                  placeholder="Select a person"
+                  placeholder="Select a country"
                   optionFilterProp="label"
                   onChange={onChange}
+                  value={product.country}
                   options={[
                     {
                       value: "vn",
@@ -92,17 +150,17 @@ const ProductDetail = () => {
                   <Flex className="content">
                     <div>Quantity Available</div>
                     <div className="btn-calculate">
-                      <FontAwesomeIcon icon={faMinus} />
+                      <FontAwesomeIcon icon={faMinus} onClick={decreaseQuanlity} />
                       1000MT
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon icon={faPlus} onClick={increaseQuanlity} />
                     </div>
                   </Flex>
                   <Flex className="content">
                     <div>Price per MT (USD)</div>
                     <div className="btn-calculate">
-                      <FontAwesomeIcon icon={faMinus} />
+                      <FontAwesomeIcon icon={faMinus} onClick={decreasePrice} />
                       $2000
-                      <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon icon={faPlus} onClick={increasePrice} />
                     </div>
                   </Flex>
                 </div>
@@ -122,19 +180,39 @@ const ProductDetail = () => {
               <div className="title">Quality Specifications: </div>
               <Flex justify="space-between" align="center">
                 <div>Nut count</div>
-                <Input placeholder="Fill in Here" />
+                <Input
+                  name="nutCount"
+                  onChange={(name, value) => handleInputChange(name, value)}
+                  value={product.quanlitySpecifications.nutCount}
+                  placeholder="Fill in Here"
+                />
               </Flex>
               <Flex justify="space-between" align="center">
                 <div>Outturn</div>
-                <Input placeholder="Minimum of 52 lbs per bag of 80 kg" />
+                <Input
+                  name="outturn"
+                   onChange={(name, value) => handleInputChange(name, value)}
+                  value={product.quanlitySpecifications.outturn}
+                  placeholder="Minimum of 52 lbs per bag of 80 kg"
+                />
               </Flex>
               <Flex justify="space-between" align="center">
                 <div>Defective</div>
-                <Input placeholder="Maximum of 8%" />
+                <Input
+                  name="defective"
+                   onChange={(name, value) => handleInputChange(name, value)}
+                  value={product.quanlitySpecifications.defective}
+                  placeholder="Maximum of 8%"
+                />
               </Flex>
               <Flex justify="space-between" align="center">
                 <div>Moisture</div>
-                <Input placeholder="Maximum of 12%" />
+                <Input
+                  name="moisture"
+                   onChange={(name, value) => handleInputChange(name, value)}
+                  value={product.quanlitySpecifications.moisture}
+                  placeholder="Maximum of 12%"
+                />
               </Flex>
             </Flex>
           </Flex>
@@ -146,7 +224,7 @@ const ProductDetail = () => {
           align="center"
           justify="center"
         >
-          <Button>Save Changes</Button>
+          <Button onClick={handleCreateProduct}>Save Changes</Button>
           <Button>Cancel</Button>
         </Flex>
       </div>
