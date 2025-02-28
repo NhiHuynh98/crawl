@@ -1,7 +1,7 @@
 import React from "react";
 
 import AuthRequired from "./layouts/Auth/AuthRequired";
-import { Contract, ProductList, NotFound, Login, Document, Dashboard, Home, ProductDetail, Order, Verify, Setting, Notification, ContractDetail, OrderDetails, Chat } from "./pages";
+import { Contract, ProductList, NotFound, Crawl, Document, Dashboard, Home, ProductDetail, Order, Verify, Setting, Notification, ContractDetail, OrderDetails, Chat } from "./pages";
 
 const routes = [
   {
@@ -9,6 +9,11 @@ const routes = [
     element: <AuthRequired />,
     children: [
       { path: "/", element: <Home />, breadcrumb: "Home" },
+       {
+        path: "/crawl",
+        element: <Crawl />,
+        breadcrumb: "Crawl Data"
+      },
       { path: "/dashboard", element: <Dashboard />, breadcrumb: "Dashboard" },
       { path: "/document", element: <Document />, breadcrumb: "Document" },
       {

@@ -13,6 +13,7 @@ import Chat from "./Order/Chat/Chat";
 import Verify from "./Verify/Verify";
 import Notification from "./Notification/Notification";
 import Setting from "./Setting/Setting";
+import Crawl from "./Crawl/Crawl";
 
 export {
     Dashboard,
@@ -29,5 +30,6 @@ export {
     Chat,
     Setting,
     Notification,
-    Verify
+    Verify,
+    Crawl
 }
