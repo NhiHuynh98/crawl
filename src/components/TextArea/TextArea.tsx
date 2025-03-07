@@ -15,8 +15,8 @@ function TextArea(props) {
 
     const handleChange = (event: any) => {
         console.log("value", event.target.value);
-        const { value, name } = event;
-        onChange([name, value]);
+        const { value, name } = event.target;
+        onChange(name, value);
     }
 
     return (

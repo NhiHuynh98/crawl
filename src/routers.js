@@ -1,7 +1,7 @@
 import React from "react";
 
 import AuthRequired from "./layouts/Auth/AuthRequired";
-import { Contract, ProductList, NotFound, Crawl, Document, Dashboard, Home, ProductDetail, Order, Verify, Setting, Notification, ContractDetail, OrderDetails, Chat } from "./pages";
+import { Contract, ProductList, NotFound, Crawl, Document, Dashboard, Home, ProductDetail, Order, Verify, Setting, Notification, ContractDetail, OrderDetails, Chat, Post } from "./pages";
 
 const routes = [
   {
@@ -13,6 +13,11 @@ const routes = [
         path: "/crawl",
         element: <Crawl />,
         breadcrumb: "Crawl Data"
+      },
+      {
+        path: "/post-new",
+        element: <Post />,
+        breadcrumb: "Post news"
       },
       { path: "/dashboard", element: <Dashboard />, breadcrumb: "Dashboard" },
       { path: "/document", element: <Document />, breadcrumb: "Document" },
