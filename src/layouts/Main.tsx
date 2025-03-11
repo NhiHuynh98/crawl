@@ -11,22 +11,43 @@ import {
 import { Breadcrumb, Button, Badge, Layout, Menu, theme } from "antd";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGlobe, faBell, faUser, faBagShopping, faBraille, faListUl, faArrowRightArrowLeft, faBars, faBox, faShield, faGear, faCircleExclamation, faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGlobe,
+  faBell,
+  faUser,
+  faBagShopping,
+  faBraille,
+  faListUl,
+  faArrowRightArrowLeft,
+  faBars,
+  faBox,
+  faShield,
+  faGear,
+  faCircleExclamation,
+  faCircleUser,
+  faRightFromBracket
+} from "@fortawesome/free-solid-svg-icons";
 
 import Logo from "../logo.png";
 import "./Main.less";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Breadcrumbs from "../helper/breadcrumb";
+import { Dropdown } from "../components";
 
 const { Header, Sider, Content } = Layout;
 
 const Main = (props) => {
+  const navigate = useNavigate()
   const { children, separator, items, size } = props;
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG }
   } = theme.useToken();
 
+  const hdLogOut = () => {
+    localStorage.removeItem("authToken")
+    navigate("/login")
+  }
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -42,43 +63,53 @@ const Main = (props) => {
           items={[
             {
               key: "1",
-              icon: <FontAwesomeIcon icon={faBars} />,
-              label: <Link to="/dashboard">Dashboard</Link>
+              icon: <FontAwesomeIcon icon={faBagShopping} />,
+              label: <Link to="/crawl">Crawl Data</Link>
             },
             {
               key: "2",
-              icon: <FontAwesomeIcon icon={faBagShopping} />,
-              label: <Link to="/product-list">Product Listings</Link>
-            },
-            {
-              key: "3",
-              icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
-              label: <Link to="/contract-bidding">Contract Bidding</Link>
+              icon: <FontAwesomeIcon icon={faBars} />,
+              label: <Link to="/post-new">Auto Post</Link>
             },
             {
               key: "4",
-              icon:  <FontAwesomeIcon icon={faBox} />,
-              label: <Link to="/order-management">Order Management</Link>
-            },
-            {
-              key: "5",
-              icon:<FontAwesomeIcon icon={faShield} />,
-              label: <Link to="/KYC-Verification">KYC Verification</Link>
-            },
-            {
-              key: "6",
-              icon: <FontAwesomeIcon icon={faGear} />,
-              label: <Link to="settings">Settings</Link>
-            },
-            {
-              key: "7",
-              icon: <FontAwesomeIcon icon={faBell} />,
-              label: <Link to="/notifications">Notifications</Link>
+              icon: <FontAwesomeIcon icon={faShield} />,
+              label: <Link to="/upload">Url</Link>
             }
+            // {
+            //   key: "2",
+            //   icon: <FontAwesomeIcon icon={faBagShopping} />,
+            //   label: <Link to="/product-list">Product Listings</Link>
+            // },
+            // {
+            //   key: "3",
+            //   icon: <FontAwesomeIcon icon={faArrowRightArrowLeft} />,
+            //   label: <Link to="/contract-bidding">Contract Bidding</Link>
+            // },
+            // {
+            //   key: "4",
+            //   icon:  <FontAwesomeIcon icon={faBox} />,
+            //   label: <Link to="/order-management">Order Management</Link>
+            // },
+            // {
+            //   key: "5",
+            //   icon:<FontAwesomeIcon icon={faShield} />,
+            //   label: <Link to="/KYC-Verification">KYC Verification</Link>
+            // },
+            // {
+            //   key: "6",
+            //   icon: <FontAwesomeIcon icon={faGear} />,
+            //   label: <Link to="settings">Settings</Link>
+            // },
+            // {
+            //   key: "7",
+            //   icon: <FontAwesomeIcon icon={faBell} />,
+            //   label: <Link to="/notifications">Notifications</Link>
+            // }
           ]}
         />
 
-        <div className="bottom-sider">
+        {/* <div className="bottom-sider">
           <hr />
 
           <Menu
@@ -98,7 +129,7 @@ const Main = (props) => {
               }
             ]}
           />
-        </div>
+        </div> */}
       </Sider>
       <Layout>
         <Header
@@ -122,7 +153,7 @@ const Main = (props) => {
           /> */}
 
           <div className="header-menu">
-            <Breadcrumbs/>
+            <Breadcrumbs />
             {/* <Breadcrumb
               separator={separator}
               items={items}
@@ -130,7 +161,8 @@ const Main = (props) => {
             /> */}
 
             <div className="header-icon">
-              <div className="notification">
+              <FontAwesomeIcon icon={faRightFromBracket} onClick={hdLogOut} />
+              {/* <div className="notification">
                 <Badge count={"5"} color="#B98D58">
                   <FontAwesomeIcon icon={faBell} />
                 </Badge>
@@ -139,10 +171,17 @@ const Main = (props) => {
               <div className="language">
                 <FontAwesomeIcon icon={faGlobe} />
                 <span>EN</span>
-              </div>
-              <div className="avatar">
-                <FontAwesomeIcon icon={faCircleUser} />
-              </div>
+              </div> */}
+              {/* <div className="avatar">
+                <Dropdown
+                  title={<FontAwesomeIcon icon={faCircleUser} />}
+                  isShowIcon={false}
+                  onClick={hdSetting}
+                  items={[
+                    { key: "1", label: "Logout" },
+                  ]}
+                />
+              </div> */}
             </div>
           </div>
         </Header>

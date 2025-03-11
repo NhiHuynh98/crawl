@@ -15,6 +15,7 @@ import Notification from "./Notification/Notification";
 import Setting from "./Setting/Setting";
 import Crawl from "./Crawl/Crawl";
 import Post from "./PostNew/Post";
+import Url from "./Url/Url";
 
 export {
     Dashboard,
@@ -33,5 +34,6 @@ export {
     Notification,
     Verify,
     Crawl,
-    Post
+    Post,
+    Url
 }

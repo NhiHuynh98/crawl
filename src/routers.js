@@ -1,7 +1,7 @@
 import React from "react";
 
 import AuthRequired from "./layouts/Auth/AuthRequired";
-import { Contract, ProductList, NotFound, Crawl, Document, Dashboard, Home, ProductDetail, Order, Verify, Setting, Notification, ContractDetail, OrderDetails, Chat, Post } from "./pages";
+import { Contract, ProductList, Url, Login, Crawl, Document, Dashboard, Home, ProductDetail, Order, Verify, Setting, Notification, ContractDetail, OrderDetails, Chat, Post } from "./pages";
 
 const routes = [
   {
@@ -18,6 +18,11 @@ const routes = [
         path: "/post-new",
         element: <Post />,
         breadcrumb: "Post news"
+      },
+      {
+        path: "/upload",
+        element: <Url />,
+        breadcrumb: "Url"
       },
       { path: "/dashboard", element: <Dashboard />, breadcrumb: "Dashboard" },
       { path: "/document", element: <Document />, breadcrumb: "Document" },
@@ -73,7 +78,8 @@ const routes = [
         breadcrumb: "Notifications"
       },
     ]
-  }
+  },
+  { path: "/login", element: <Login /> },
 ];
 
 export default routes;
