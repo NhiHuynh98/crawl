@@ -8,7 +8,7 @@ import {
   Image,
   GetProp
 } from "antd";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Input, TextArea, Button } from "../../components";
 import {
   LoadingOutlined,
@@ -34,7 +34,8 @@ export const Post = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [values, setValues] = useState({
-    page: "50"
+    page: "50",
+    page_url: [],
   });
 
   const hdChange = (name, value) => {
@@ -53,59 +54,80 @@ export const Post = () => {
     setPreviewOpen(true);
   };
 
-  const convertImageToPayload = (file: File): Promise<{ name: string; mimeType: string; buffer: number[] }> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+  const convertImageToPayload = (
+    file: File
+  ): Promise<{ name: string; mimeType: string; buffer: number[] }> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-    reader.onload = (event) => {
-      const arrayBuffer = event.target?.result as ArrayBuffer;
-      const uint8Array = new Uint8Array(arrayBuffer);
-      const bufferArray = Array.from(uint8Array);
+      reader.onload = (event) => {
+        const arrayBuffer = event.target?.result as ArrayBuffer;
+        const uint8Array = new Uint8Array(arrayBuffer);
+        const bufferArray = Array.from(uint8Array);
 
-      resolve({
-        name: file.name,
-        mimeType: file.type,
-        buffer: bufferArray,
-      });
-    };
+        resolve({
+          name: file.name,
+          mimeType: file.type,
+          buffer: bufferArray
+        });
+      };
 
-    reader.onerror = (error) => reject(error);
-    reader.readAsArrayBuffer(file);
-  });
-};
+      reader.onerror = (error) => reject(error);
+      reader.readAsArrayBuffer(file);
+    });
+  };
 
-  const handleChange: UploadProps["onChange"] = async ({ fileList: newFileList }) => {
+  const handleChange: UploadProps["onChange"] = async ({
+    fileList: newFileList
+  }) => {
     const processedFiles = await Promise.all(
-    newFileList.map(async (file) => {
-      if (!file.originFileObj) return file;
+      newFileList.map(async (file) => {
+        if (!file.originFileObj) return file;
 
-      const filePayload = await convertImageToPayload(file.originFileObj);
-      return filePayload
-    })
-  );
-  setFileList(newFileList);
-  setFilePayload(processedFiles)
-  }
-
+        const filePayload = await convertImageToPayload(file.originFileObj);
+        return filePayload;
+      })
+    );
+    setFileList(newFileList);
+    setFilePayload(processedFiles);
+  };
 
   const handlePostNews = async () => {
-    let temp = {
-      ...values,
-      filePayload
-    };
     try {
       const response = await fetch(`http://localhost:5000/post-news`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(temp)
+        body: JSON.stringify({...values, filePayload})
       });
       const data = await response.json();
     } catch (error) {
       // setTestOutput("Error running tests");
     }
   };
+
+  useEffect(() => {
+    hdGetUrls();
+  }, []);
+
+  const [optionUrl, setOptionUrl] = useState([]);
+
+  const hdGetUrls = async () => {
+    const response = await fetch("http://localhost:5000/get-location");
+    const data = await response.json();
+    setOptionUrl(data.result);
+  };
+
+  const handleGetLinks = async (value: string) => {
+    const result = await fetch(
+      `http://localhost:5000/get-group-url?location=${value}`
+    );
+    const data = await result.json();
+    hdChange("page_url", data.result);
+  };
+
+  console.log("sss", values);
 
   return (
     <Flex vertical gap="middle">
@@ -149,13 +171,12 @@ export const Post = () => {
 
       <Flex gap="middle" align="center">
         <Typography style={{ width: 150 }}>Nhập link cần đăng tin: </Typography>
-        <TextArea
-          placeholder="Enter links"
-          maxLength="999999999999"
-          value={values["page_url"]}
-          name="page_url"
-          onChange={hdChange}
-          style={{ height: 120, width: "90%", resize: "none" }}
+
+        <Select
+          defaultValue="none"
+          style={{ width: 120 }}
+          onChange={(value) => handleGetLinks(value)}
+          options={optionUrl}
         />
       </Flex>
 
@@ -164,11 +185,13 @@ export const Post = () => {
         <Select
           defaultValue="none"
           style={{ width: 120 }}
-          onChange={(value) => hdChange("page", value)}
+          onChange={(value) => hdChange("page", Number(value))}
           value={values["page"]}
           options={[
             { value: "50", label: "50" },
-            { value: "100", label: "100" }
+            { value: "100", label: "100" },
+            { value: "150", label: "150" },
+            { value: "200", label: "200" }
           ]}
         />
       </Flex>
